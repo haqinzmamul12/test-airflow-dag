@@ -32,6 +32,18 @@ jobs:
           echo "Waiting for Airflow to be ready..."
           sleep 60
 
+      - name: Wait for Airflow
+        run: |
+          for i in {1..30}; do
+            if docker logs airflow 2>&1 | grep -q "Scheduler started"; then
+              echo "Airflow is ready!"
+              break
+            fi
+            echo "Waiting for Airflow..."
+            sleep 10
+          done
+
+
       - name: Trigger DAG
         run: |
           docker exec airflow airflow dags trigger test_dag
