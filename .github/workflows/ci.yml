@@ -32,6 +32,9 @@ jobs:
           docker compose up -d
           echo "Waiting for Airflow to be ready..."
           sleep 10
+          echo "container logs:"
+          docker ps -a | grep airflow
+
           echo "airflow dags list:"
           docker exec airflow airflow dags list
 
