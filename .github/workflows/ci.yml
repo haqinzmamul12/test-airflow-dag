@@ -23,7 +23,8 @@ jobs:
 
       - name: Build Airflow Docker image
         run: |
-          docker build -t airflow-mini:latest ./docker
+          docker build -t airflow-mini:latest .
+
 
       - name: Start Airflow with Docker Compose
         run: |
