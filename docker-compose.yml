@@ -10,6 +10,13 @@ services:
       interval: 5s
       retries: 5
 
+  airflow-init:
+    build: .
+    command: bash -c "airflow db init"
+    depends_on:
+      postgres:
+        condition: service_healthy
+
   airflow:
     image: apache/airflow:2.9.0
     container_name: airflow
