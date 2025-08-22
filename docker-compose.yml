@@ -12,8 +12,7 @@ services:
 
   airflow:
     build:
-      context: .
-      dockerfile: dockerfile
+      image: apache/airflow:2.9.0
     container_name: airflow
     depends_on:
       - postgres
