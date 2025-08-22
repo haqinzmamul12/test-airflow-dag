@@ -1,0 +1,38 @@
+name: Airflow DAG Run
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  airflow-dag-test:
+    runs-on: ubuntu-latest
+
+    services:
+      docker:
+        image: docker:20.10-dind
+        options: --privileged
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Docker
+        uses: docker/setup-buildx-action@v3
+
+      - name: Build Airflow Docker image
+        run: |
+          docker build -t airflow-mini:latest ./docker
+
+      - name: Start Airflow with Docker Compose
+        run: |
+          docker-compose up -d
+          echo "Waiting for Airflow to be ready..."
+          sleep 60
+
+      - name: Trigger DAG
+        run: |
+          docker exec airflow airflow dags trigger test_dag
+          sleep 20
+          docker exec airflow airflow tasks test test_dag print_world $(date +%Y-%m-%d)
