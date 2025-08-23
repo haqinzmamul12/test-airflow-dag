@@ -35,3 +35,13 @@ services:
       - "8080:8080"
     volumes:
       - ./dags:/opt/airflow/dags   # ✅ Mount local dags folder inside container
+
+
+  ngrok:
+    image: wernight/ngrok
+    container_name: ngrok
+    depends_on:
+      - airflow
+    environment:
+      - NGROK_AUTHTOKEN=${NGROK_AUTHTOKEN}
+    command: ngrok http airflow:8080

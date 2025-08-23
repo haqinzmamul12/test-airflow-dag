@@ -42,12 +42,14 @@ jobs:
           docker exec airflow ls -l /opt/airflow/dags
 
 
-
+      - name: Get Ngrok URL
+        run: |
+          docker logs ngrok | grep "url=" || true
 
 
       - name: Wait for Airflow
         run: |
-          for i in {1..5}; do
+          for i in {1..1}; do
             echo "=== Iteration $i ==="
             echo "--> Container status:"
             docker ps -a --filter "name=airflow"
