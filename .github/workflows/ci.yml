@@ -38,6 +38,10 @@ jobs:
           echo "airflow dags list:"
           docker exec airflow airflow dags list
 
+          echo "Checking DAG file inside container:"
+          docker exec -it airflow ls -l /opt/airflow/dags
+
+
 
       - name: Wait for Airflow
         run: |
