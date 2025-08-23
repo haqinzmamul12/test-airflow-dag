@@ -1,9 +1,9 @@
-FROM apache/airflow:2.9.0
+FROM apache/airflow:2.9.0 
 
-WORKDIR /opt/airflow
+WORKDIR /opt/airflow 
 
-# Copy DAGs
-COPY dags/ ./dags/
-COPY requirements.txt .
+COPY . . 
 
 RUN pip install --no-cache-dir -r requirements.txt
+
+
