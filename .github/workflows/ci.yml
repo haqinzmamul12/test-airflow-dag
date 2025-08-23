@@ -83,3 +83,8 @@ jobs:
           docker exec airflow airflow dags trigger test_dag
           sleep 20
           docker exec airflow airflow tasks test test_dag print_world $(date +%Y-%m-%d)
+
+
+      - name: Keep alive for 5 mints
+        run: sleep 300
+
