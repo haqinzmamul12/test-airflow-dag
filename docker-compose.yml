@@ -37,12 +37,12 @@ services:
       - ./dags:/opt/airflow/dags   # ✅ Mount local dags folder inside container
 
 
-    ngrok:
-      image: ngrok/ngrok:latest   # official updated image
-      container_name: ngrok
-      depends_on:
-        - airflow
-      environment:
-        - NGROK_AUTHTOKEN=${NGROK_AUTHTOKEN}
-      command: http airflow:8080
+  ngrok:
+    image: ngrok/ngrok:latest   # official updated image
+    container_name: ngrok
+    depends_on:
+      - airflow
+    environment:
+      - NGROK_AUTHTOKEN=${NGROK_AUTHTOKEN}
+    command: http airflow:8080
 
