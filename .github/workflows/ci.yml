@@ -39,7 +39,8 @@ jobs:
           docker exec airflow airflow dags list
 
           echo "Checking DAG file inside container:"
-          docker exec -it airflow ls -l /opt/airflow/dags
+          docker exec test-airflow-dag-airflow-1 ls -l /opt/airflow/dags
+
 
 
 
