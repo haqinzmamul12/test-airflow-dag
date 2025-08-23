@@ -43,9 +43,18 @@ jobs:
           docker exec airflow ls -l /opt/airflow/dags
 
 
-      - name: Get Ngrok URL
+      - name: Get ngrok URL
         run: |
-          docker logs ngrok | grep "url=" || true
+          # Wait for ngrok to initialize
+          sleep 10
+          docker logs ngrok 2>&1 | jq -r 'select(.msg=="started tunnel") | .url' | head -n 1
+
+      - name: Publish ngrok URL
+        run: |
+          URL=$(docker logs ngrok 2>&1 | jq -r 'select(.msg=="started tunnel") | .url' | head -n 1)
+          echo "Airflow UI: $URL" >> $GITHUB_STEP_SUMMARY
+
+
 
 
       - name: Wait for Airflow

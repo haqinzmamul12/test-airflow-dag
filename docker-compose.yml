@@ -38,11 +38,12 @@ services:
 
 
   ngrok:
-    image: ngrok/ngrok:latest   # official updated image
+    image: ngrok/ngrok:3
     container_name: ngrok
-    depends_on:
-      - airflow
+    command: http airflow:8080 --log=stdout --log-format=json
     environment:
       - NGROK_AUTHTOKEN=${NGROK_AUTHTOKEN}
-    command: http airflow:8080
+    depends_on:
+      - airflow
+
 
