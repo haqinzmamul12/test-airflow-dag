@@ -22,7 +22,7 @@ services:
     command: bash -c "airflow db init"
 
   airflow:
-    image: apache/airflow:2.9.0
+    build: .
     container_name: airflow
     depends_on:
       postgres:
